@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="StudijeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Ispit">
+    <Key>
+      <PropertyRef Name="idIspit" />
+    </Key>
+    <Property Name="idIspit" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idIspitniRok" Type="Int16" Nullable="false" />
+    <Property Name="idPredmet" Type="Int16" Nullable="false" />
+    <Property Name="ispitDatum" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="IspitniRok" Relationship="Self.FK_Ispit_IspitniRok" FromRole="Ispit" ToRole="IspitniRok" />
+    <NavigationProperty Name="Predmet" Relationship="Self.FK_Ispit_Predmet" FromRole="Ispit" ToRole="Predmet" />
+    <NavigationProperty Name="StudentIspits" Relationship="Self.FK_StudentIspit_Ispit" FromRole="Ispit" ToRole="StudentIspit" />
+  </EntityType>
+  <EntityType Name="IspitniRok">
+    <Key>
+      <PropertyRef Name="idIspitniRok" />
+    </Key>
+    <Property Name="idIspitniRok" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="godina" Type="Int16" Nullable="false" />
+    <Property Name="ispitniRokNaziv" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="popravni" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Ispits" Relationship="Self.FK_Ispit_IspitniRok" FromRole="IspitniRok" ToRole="Ispit" />
+  </EntityType>
+  <EntityType Name="Predmet">
+    <Key>
+      <PropertyRef Name="idPredmet" />
+    </Key>
+    <Property Name="idPredmet" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="predmetNaziv" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="espb" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="Ispits" Relationship="Self.FK_Ispit_Predmet" FromRole="Predmet" ToRole="Ispit" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="idStudent" />
+    </Key>
+    <Property Name="idStudent" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="prezime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="indeksBroj" Type="Int32" Nullable="false" />
+    <Property Name="indeksGodina" Type="Int32" Nullable="false" />
+    <Property Name="indeksCalc" Type="String" MaxLength="13" FixedLength="false" Unicode="true" annotation:StoreGeneratedPattern="Computed" />
+    <Property Name="imePrezime" Type="String" MaxLength="101" FixedLength="false" Unicode="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+    <Property Name="prezimeIme" Type="String" MaxLength="101" FixedLength="false" Unicode="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+    <NavigationProperty Name="StudentIspits" Relationship="Self.FK_StudentIspit_Student" FromRole="Student" ToRole="StudentIspit" />
+  </EntityType>
+  <EntityType Name="StudentIspit">
+    <Key>
+      <PropertyRef Name="idStudentIspit" />
+    </Key>
+    <Property Name="idStudentIspit" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idStudent" Type="Int32" Nullable="false" />
+    <Property Name="idIspit" Type="Int32" Nullable="false" />
+    <Property Name="ocena" Type="Byte" />
+    <Property Name="dvPrijave" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Ispit" Relationship="Self.FK_StudentIspit_Ispit" FromRole="StudentIspit" ToRole="Ispit" />
+    <NavigationProperty Name="Student" Relationship="Self.FK_StudentIspit_Student" FromRole="StudentIspit" ToRole="Student" />
+  </EntityType>
+  <Association Name="FK_Ispit_IspitniRok">
+    <End Role="IspitniRok" Type="Self.IspitniRok" Multiplicity="1" />
+    <End Role="Ispit" Type="Self.Ispit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IspitniRok">
+        <PropertyRef Name="idIspitniRok" />
+      </Principal>
+      <Dependent Role="Ispit">
+        <PropertyRef Name="idIspitniRok" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ispit_Predmet">
+    <End Role="Predmet" Type="Self.Predmet" Multiplicity="1" />
+    <End Role="Ispit" Type="Self.Ispit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Predmet">
+        <PropertyRef Name="idPredmet" />
+      </Principal>
+      <Dependent Role="Ispit">
+        <PropertyRef Name="idPredmet" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudentIspit_Ispit">
+    <End Role="Ispit" Type="Self.Ispit" Multiplicity="1" />
+    <End Role="StudentIspit" Type="Self.StudentIspit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ispit">
+        <PropertyRef Name="idIspit" />
+      </Principal>
+      <Dependent Role="StudentIspit">
+        <PropertyRef Name="idIspit" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudentIspit_Student">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="StudentIspit" Type="Self.StudentIspit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="idStudent" />
+      </Principal>
+      <Dependent Role="StudentIspit">
+        <PropertyRef Name="idStudent" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="StudijeEntities" annotation:LazyLoadingEnabled="false">
+    <EntitySet Name="Ispits" EntityType="Self.Ispit" />
+    <EntitySet Name="IspitniRoks" EntityType="Self.IspitniRok" />
+    <EntitySet Name="Predmets" EntityType="Self.Predmet" />
+    <EntitySet Name="Students" EntityType="Self.Student" />
+    <EntitySet Name="StudentIspits" EntityType="Self.StudentIspit" />
+    <AssociationSet Name="FK_Ispit_IspitniRok" Association="Self.FK_Ispit_IspitniRok">
+      <End Role="IspitniRok" EntitySet="IspitniRoks" />
+      <End Role="Ispit" EntitySet="Ispits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ispit_Predmet" Association="Self.FK_Ispit_Predmet">
+      <End Role="Predmet" EntitySet="Predmets" />
+      <End Role="Ispit" EntitySet="Ispits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudentIspit_Ispit" Association="Self.FK_StudentIspit_Ispit">
+      <End Role="Ispit" EntitySet="Ispits" />
+      <End Role="StudentIspit" EntitySet="StudentIspits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudentIspit_Student" Association="Self.FK_StudentIspit_Student">
+      <End Role="Student" EntitySet="Students" />
+      <End Role="StudentIspit" EntitySet="StudentIspits" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

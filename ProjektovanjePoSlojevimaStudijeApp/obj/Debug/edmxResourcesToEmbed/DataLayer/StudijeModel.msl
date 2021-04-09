@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="StudijeModelStoreContainer" CdmEntityContainer="StudijeEntities">
+    <EntitySetMapping Name="Ispits">
+      <EntityTypeMapping TypeName="StudijeModel.Ispit">
+        <MappingFragment StoreEntitySet="Ispit">
+          <ScalarProperty Name="idIspit" ColumnName="idIspit" />
+          <ScalarProperty Name="idIspitniRok" ColumnName="idIspitniRok" />
+          <ScalarProperty Name="idPredmet" ColumnName="idPredmet" />
+          <ScalarProperty Name="ispitDatum" ColumnName="ispitDatum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IspitniRoks">
+      <EntityTypeMapping TypeName="StudijeModel.IspitniRok">
+        <MappingFragment StoreEntitySet="IspitniRok">
+          <ScalarProperty Name="idIspitniRok" ColumnName="idIspitniRok" />
+          <ScalarProperty Name="godina" ColumnName="godina" />
+          <ScalarProperty Name="ispitniRokNaziv" ColumnName="ispitniRokNaziv" />
+          <ScalarProperty Name="popravni" ColumnName="popravni" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Predmets">
+      <EntityTypeMapping TypeName="StudijeModel.Predmet">
+        <MappingFragment StoreEntitySet="Predmet">
+          <ScalarProperty Name="idPredmet" ColumnName="idPredmet" />
+          <ScalarProperty Name="predmetNaziv" ColumnName="predmetNaziv" />
+          <ScalarProperty Name="espb" ColumnName="espb" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Students">
+      <EntityTypeMapping TypeName="StudijeModel.Student">
+        <MappingFragment StoreEntitySet="Student">
+          <ScalarProperty Name="idStudent" ColumnName="idStudent" />
+          <ScalarProperty Name="ime" ColumnName="ime" />
+          <ScalarProperty Name="prezime" ColumnName="prezime" />
+          <ScalarProperty Name="indeksBroj" ColumnName="indeksBroj" />
+          <ScalarProperty Name="indeksGodina" ColumnName="indeksGodina" />
+          <ScalarProperty Name="indeksCalc" ColumnName="indeksCalc" />
+          <ScalarProperty Name="imePrezime" ColumnName="imePrezime" />
+          <ScalarProperty Name="prezimeIme" ColumnName="prezimeIme" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StudentIspits">
+      <EntityTypeMapping TypeName="StudijeModel.StudentIspit">
+        <MappingFragment StoreEntitySet="StudentIspit">
+          <ScalarProperty Name="idStudentIspit" ColumnName="idStudentIspit" />
+          <ScalarProperty Name="idStudent" ColumnName="idStudent" />
+          <ScalarProperty Name="idIspit" ColumnName="idIspit" />
+          <ScalarProperty Name="ocena" ColumnName="ocena" />
+          <ScalarProperty Name="dvPrijave" ColumnName="dvPrijave" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
